@@ -11,3 +11,5 @@
 11- m bit means only 0 or 1
 12- comparision bit ==== ld= D30 k100   iske likhne output high hogi 
 13 - value move mov k30 D31    (input high then given value move)
+
+Attached proogram melsoft gx works 3 main bana hain to works 3 main hi khulega
