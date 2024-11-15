@@ -1,0 +1,13 @@
+﻿1- software - melsoft gx works 3
+2- for start click -  start system simulation 
+3- for online -- convert --> Online Program change   or online program chamge or f4
+4- high bit or low bit --- shift + Enter 
+5- Any changes in program then click ---> OnlineProgram change 
+6- for input use --- ld m30
+7- for output use --- out m40
+8- i can not change   output bit 
+9- Every  change of program compile is necessary --- Rebuild
+10 - to change program should write mode 
+11- m bit means only 0 or 1
+12- comparision bit ==== ld= D30 k100   iske likhne output high hogi 
+13 - value move mov k30 D31    (input high then given value move)
