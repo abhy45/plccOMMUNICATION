@@ -43,7 +43,7 @@ namespace plccOMMUNICATION
         {
             PLC = new ActUtlType();
             PLC.ActLogicalStationNumber = 1;
-            start:
+        start:
             int IsPlcOpen = PLC.Open();//25202689
 
             while (true)
@@ -56,7 +56,7 @@ namespace plccOMMUNICATION
                     lblplcopen.BackColor = Color.LightGreen;
 
                     ReadDataFromPLC();
-                   // WriteDataToPLC();
+                    // WriteDataToPLC();
                     if (IsPlcOpen != 0)
                     {
                         goto start;
@@ -79,21 +79,21 @@ namespace plccOMMUNICATION
             {
                 if (PLC != null)
                 {
-                  
+
                     int dataValue = 0;
                     int resultCode = PLC.GetDevice("M30", out dataValue);
-                  
-                        if (resultCode == 0)
-                        {
-                            lblplcRead.Text = "M30" + "-" + dataValue;
-                            lblplcRead.BackColor = Color.Green;
-                        }
-                        else
-                        {
-                            lblplcRead.Text = resultCode.ToString();
-                            lblplcRead.BackColor = Color.Red;
-                        }
-                  
+
+                    if (resultCode == 0)
+                    {
+                        lblplcRead.Text = "M30" + "-" + dataValue;
+                        lblplcRead.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        lblplcRead.Text = resultCode.ToString();
+                        lblplcRead.BackColor = Color.Red;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -114,17 +114,17 @@ namespace plccOMMUNICATION
 
                     int resultCode = PLC.SetDevice(deviceName, valueToSet);
 
-                        if (resultCode == 0)  // 0 means success
-                        {
-                            plcwrite.Text = "PLC write   :" + deviceName + "----" + valueToSet;
-                            plcwrite.BackColor = Color. Red;
+                    if (resultCode == 0)  // 0 means success
+                    {
+                        plcwrite.Text = "PLC write   :" + deviceName + "----" + valueToSet;
+                        plcwrite.BackColor = Color.Red;
 
-                        }
-                        else
-                        {
-                            plcwrite.BackColor = Color.Red;
-                            plcwrite.Text = resultCode.ToString();
-                        }
+                    }
+                    else
+                    {
+                        plcwrite.BackColor = Color.Red;
+                        plcwrite.Text = resultCode.ToString();
+                    }
                 }
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace plccOMMUNICATION
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-           // plcthread.DisableComObjectEagerCleanup();
+            // plcthread.DisableComObjectEagerCleanup();
 
         }
         private void ReadDataFromPLCbackup()
@@ -236,7 +236,7 @@ namespace plccOMMUNICATION
                     {
                         if (resultCode == 0)
                         {
-                            lblDataFromPLC.Text = "Read data : " + deviceName +"     " + dataValue;
+                            lblDataFromPLC.Text = "Read data : " + deviceName + "     " + dataValue;
                             lblDataFromPLC.BackColor = Color.Green;
                         }
                         else
@@ -254,36 +254,74 @@ namespace plccOMMUNICATION
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string textToSend = "hello";
+                string baseDeviceName = "D100";
 
-        //         try
-        //            {
-        //                string textToSend = "k100";
-        //        string baseDeviceName = "D30";
+                for (int i = 0; i < textToSend.Length; i++)
+                {
+                    string deviceName = baseDeviceName + i;  // Adjust based on your PLC’s addressing scheme
+                    int asciiValue = (int)textToSend[i];
 
-        //                for (int i = 0; i<textToSend.Length; i++)
-        //                {
-        //                    string deviceName = baseDeviceName + i;  // Adjust based on your PLC’s addressing scheme
-        //        int asciiValue = (int)textToSend[i];
+                    int resultCode = PLC.SetDevice(deviceName, asciiValue);
 
-        //        int resultCode = PLC.SetDevice(deviceName, asciiValue);
+                    if (resultCode != 0)
+                    {
+                        plcwrite.Text = $"Error writing {textToSend[i]} to {deviceName}. Error code: {resultCode}";
+                        plcwrite.BackColor = Color.Red;
+                        return;
+                    }
+                }
 
-        //                    if (resultCode != 0)
-        //                    {
-        //                        plcwrite.Text = $"Error writing {textToSend[i]} to {deviceName}. Error code: {resultCode}";
-        //                        plcwrite.BackColor = Color.Red;
-        //                        return;
-        //                    }
-        //}
+                MessageBox.Show("send data ");
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.BackColor = Color.Red;
 
-        //plcwrite.Text = "String sent successfully!";
-        //plcwrite.BackColor = Color.Green;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                lblError.Text = ex.Message;
-        //lblError.BackColor = Color.Red;
-        //            }
+            }
 
+
+
+
+
+
+
+        }
+
+
+//          try
+//            {
+//                string textToSend = "hello";
+//        string baseDeviceName = "D100";
+
+            //                for (int i = 0; i<textToSend.Length; i++)
+            //                {
+            //                    string deviceName = baseDeviceName + i;  // Adjust based on your PLC’s addressing scheme
+            //        int asciiValue = (int)textToSend[i];
+
+            //        int resultCode = PLC.SetDevice(deviceName, asciiValue);
+
+            //                    if (resultCode != 0)
+            //                    {
+            //                        plcwrite.Text = $"Error writing {textToSend[i]} to {deviceName}. Error code: {resultCode}";
+            //                        plcwrite.BackColor = Color.Red;
+            //                        return;
+            //                    }
+            //}
+
+            //MessageBox.Show("send data ");
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                lblError.Text = ex.Message;
+            //lblError.BackColor = Color.Red;
+
+            //            }
 
 
 

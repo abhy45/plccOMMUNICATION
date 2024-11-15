@@ -13,3 +13,8 @@
 13 - value move mov k30 D31    (input high then given value move)
 
 Attached proogram melsoft gx works 3 main bana hain to works 3 main hi khulega
+
+
+
+(Help ke niche )Device buffer memory batch monitor to see all data gesiter Value 
+o se 79999 reserve
